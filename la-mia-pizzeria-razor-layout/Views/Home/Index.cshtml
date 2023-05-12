@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var firstName = "Calogero Luca";
+    var lastName = "Radio";
+
+        List<int> list = new List<int>(20);
+        Random rand = new Random();
+        for(int i = 0; i< 20; i++)
+        {
+            list.Add(rand.Next(1,91));
+        }
+}
+
+@functions{
+    int sumNumber(int lastNumber)
+    {
+
+        int first = 0;
+        int j = 1;
+        for (int i = 0; i < lastNumber; i++)
+        {
+            first += j;
+            j++;
+        }
+        return first;
+
+
+    }
+
+    int dante()
+    {
+        int count = 0;
+        string quote = "nel mezzo del cammin di nostra vita";
+        string[] splittedQuote = quote.Split();
+        foreach(char s in quote)
+        {
+            if(s.ToString() == "a")
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+}
+
+<div class="text-center">
+    <h2>First and Lastname: @(firstName + " " + lastName)</h2>
+    <hr />
+    <br />
+    <span>SumNumber: @sumNumber(5)</span>
+    <hr />
+    <br />
+    <h4>Dante's quote: @dante()</h4>
+    <hr />
+    <br />
+        
+        <div class="text-start">
+        <span class="fw-bold"> Random numbers between 20 and 70: </span>
+        <ul class="list-unstyled">
+            @foreach (int i in list)
+            {
+                if (i >= 20 && i <= 70)
+                {
+                    <li>@i</li>
+                }
+            }
+        </ul>
+        </div>
+    <hr />
+    <br />
+    <span>Today is : @DateTime.Now</span>
+    <hr />
+    <br />
+    <div>
+        @{
+            DateTime now = DateTime.Now;
+        }
+        <div>Today is : @now</div>
+        <div>Last week was: @(now.AddDays(-7))</div>
+        <div>Today is: @(now.ToString("dddd"))</div>
+        <div>In a year the same date is: @(now.AddYears(1).ToString("dddd"))</div>
+
+
+
+
+    </div>
+
+
+    
+</div>

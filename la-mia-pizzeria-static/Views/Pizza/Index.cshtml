@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+
+}
+
+@model List<Pizza>
+
+    <div class="container my-4">
+        <div class="row row-cols-5 g-3">
+        @foreach (Pizza p in Model)
+        {
+            <div class="col">
+                <div class="card bg-dark h-100">
+                    <img class="card-img-top" src=@p.Img alt="Card image cap">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-white">@p.Name</h5>
+                        <p class="card-text text-white flex-grow-1">Ingredients: @p.Description</p>
+                        <div class="button-container d-flex justify-content-evenly">
+                            
+                            <a href=@Url.Action("Show","Pizza", new{id=p.Id}) class="btn btn-info">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                                
+                            
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a href=@Url.Action("Edit","Pizza", new{id=p.Id}) class="btn btn-warning">
+                                    <i class="fa-solid fa-pencil"></i>
+                                </a>
+                            }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <form asp-controller="Pizza" asp-action="Delete" class="myform" asp-route-id=@p.Id method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button class="btn btn-danger h-100" onclick="return confirm('Are you sure?')">
+                                        <i class="fa-solid fa-trash"></i>
+
+                                    </button>
+
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        }
+        </div>
+
+            
+    </div>
+

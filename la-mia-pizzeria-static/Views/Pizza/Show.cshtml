@@ -1,0 +1,34 @@
+﻿@model Pizza;
+
+
+
+<div class="row justify-content-center">
+    <div class="col-6">
+
+    <div class="card bg-dark">
+        <img class="card-img-top" src=@Model.Img alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title text-white">@(Model.Name)</h5>
+                <p class="card-text text-white">Description: @(Model.Description)</p>
+            <p class="card-text text-white">Price: @Model.Price</p>
+            <p class="card-text text-white">Category: @Model.Category.Name</p>
+            <p class="card-text text-white">Ingredients: 
+                @for(var i=0;i<Model.Ingredients.Count;i++)
+                        if (Model.Ingredients.Count-1 ==i)
+                        {
+                            @Model.Ingredients[i].Name;
+                        }
+                        else
+                        {
+                            @(Model.Ingredients[i].Name + ", ");
+                        }
+                    
+                </p>
+
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
