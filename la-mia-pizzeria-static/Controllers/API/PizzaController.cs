@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace la_mia_pizzeria_static.Controllers.API
 {
@@ -10,7 +11,7 @@ namespace la_mia_pizzeria_static.Controllers.API
     public class PizzaController : ControllerBase
     {
         [HttpGet]
-        public IActionResult Pizzas()
+        public IActionResult Pizzas(string? search)
         {
 
 
@@ -19,14 +20,29 @@ namespace la_mia_pizzeria_static.Controllers.API
 
             using (PizzaContext db = new())
             {
-                List<Pizza> pizzas = db.Pizzas.Include(p => p.Category).Include(p => p.Ingredients).ToList();
-                if (pizzas != null)
+                if (string.IsNullOrEmpty(search))
                 {
-                    return Ok(pizzas);
+                    List<Pizza> pizzas = db.Pizzas.Include(p => p.Category).Include(p => p.Ingredients).ToList();
+                    if (pizzas != null)
+                    {
+                        return Ok(pizzas);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
                 else
                 {
-                    return NotFound();
+                    List<Pizza> pizzas = db.Pizzas.Include(p => p.Category).Include(p => p.Ingredients).Where(p => p.Name.Contains(search)).ToList();
+                    if (pizzas != null)
+                    {
+                        return Ok(pizzas);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
                 }
             }
 
