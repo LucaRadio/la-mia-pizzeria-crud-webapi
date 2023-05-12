@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Globalization;
+using System.Text.Json.Serialization;
 
 namespace la_mia_pizzeria_static
 {
@@ -18,6 +21,11 @@ namespace la_mia_pizzeria_static
 
             builder.Services.AddDefaultIdentity<IdentityUser>().AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<PizzaContext>();
+
+
+            builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
 
             builder.Services.AddScoped<IMyLogger, MyLogger>();
             // Add services to the container.
