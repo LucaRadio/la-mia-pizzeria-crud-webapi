@@ -48,8 +48,33 @@ function deletePizza(id) {
     const q = confirm('Are you sure?');
 
     if (q) {
-        axios.delete(`/api/Pizza/Delete/${id}`)
-            .then(alert('Deleted'))
-            .catch(alert('Something went wrong. Try again!'))
+        axios.delete(`api/Pizza/Delete/${id}`)
+            .then(resp => {
+                alert('Deleted')
+                getPizzas();
+            })
+            .catch(err=>alert('Something went wrong. Try again!'))
     }
+}
+
+function savePizza() {
+    const postToCreate = {
+        "pizza": {
+            name: document.getElementById("name").value,
+            description: document.getElementById("desc").value,
+            price: document.getElementById("price").value,
+            categoryId: 1,
+            img: document.getElementById("img").value
+        }
+    }
+    axios.post(window.location.origin + '/api/Pizza/CreateWithApi', postToCreate, {
+        Headers: { "Content-Type": "application/json" }
+    })
+        .then(resp => {
+            window.location.href = '/';
+        })
+        .catch(err => {
+            console.log(err.response);
+            alert('error');
+        })
 }

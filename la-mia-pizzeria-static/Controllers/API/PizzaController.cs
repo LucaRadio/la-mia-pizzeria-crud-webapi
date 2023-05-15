@@ -68,7 +68,7 @@ namespace la_mia_pizzeria_static.Controllers.API
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] ModelPizza model)
+        public IActionResult CreateWithApi([FromBody] ModelPizza model)
         {
 
             using (PizzaContext db = new())

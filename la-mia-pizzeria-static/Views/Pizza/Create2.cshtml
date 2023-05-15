@@ -1,0 +1,59 @@
+﻿@model ModelPizza
+<div class="row">
+    <div class="col-md-12">
+        <form asp-controller="Pizza" asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <h1>Add your pizza</h1>
+
+            <div class="mb-3">
+                <label for="Name">Name:</label>
+                <input type="text" asp-for="Pizza.Name" />
+                <span asp-validation-for="Pizza.Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label for="Description">Description:</label>
+                <input type="text" asp-for="Pizza.Description" />
+                <span asp-validation-for="Pizza.Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="Price">Price:</label>
+                <input type="number" step="0.01" asp-for="Pizza.Price" />
+                <span asp-validation-for="Pizza.Price" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="mb-3">
+                <label for="Category" class="light">Category:</label>
+                <select asp-for="Pizza.CategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))"></select>
+                <span asp-validation-for="Pizza.CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="SelectedIngredientsIDs" class="light">Ingredients:</label>
+                    <select asp-for="SelectedIngredientsIDs" class="h-100"
+                    multiple="multiple"
+                    size="5"
+                    asp-items="@Model.Ingredients">
+                    </select>
+                <span asp-validation-for="SelectedIngredientsIDs" class="text-danger"></span>
+            </div>
+
+
+
+
+
+
+            <div class="mb-3">
+                <label for="Image" class="light">Image URL</label>
+                <input type="text" asp-for="Pizza.Img" />
+                <span asp-validation-for="Pizza.Img" class="text-danger"></span>
+            </div>
+
+
+            <button type="submit">Save</button>
+
+        </form>
+    </div>
+</div>

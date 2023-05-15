@@ -48,6 +48,8 @@ namespace la_mia_pizzeria_static
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod()
+                            .SetIsOriginAllowed(_ => true).AllowCredentials());
 
             app.UseAuthentication();
             app.UseAuthorization();
