@@ -5,10 +5,13 @@
 }
 
 @model List<Pizza>
-
     <div class="container my-4">
+
+              <input type="text" placeholder="Search by name..."></input>
+              <button onclick="checkSearchInput()" class="btn btn-primary">Search</button>
         <div class="row row-cols-5 g-3">
-        @foreach (Pizza p in Model)
+
+@*        @foreach (Pizza p in Model)
         {
             <div class="col">
                 <div class="card bg-dark h-100">
@@ -44,10 +47,10 @@
                     </div>
                 </div>
             </div>
-            
         }
+            *@
         </div>
-
+        <script src="~/js/API/index.js"></script>
             
     </div>
 
